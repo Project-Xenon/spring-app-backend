@@ -2,6 +2,11 @@
 .gradle
 /build/
 
+# Make sure to ignore the file that holds the secrets (shh)
+src/main/resources/application.properties
+
+application.properties
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
@@ -10,7 +15,6 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
-
 
 
 # From https://github.com/github/gitignore/blob/master/Java.gitignore
