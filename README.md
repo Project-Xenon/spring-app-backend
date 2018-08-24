@@ -26,3 +26,50 @@ __Note: You will require an application.properties file that will need to be pla
 Please ask one of the club officers to provide you with that file on [our Slack channel](ccsu-project-xenon.slack.com).__
 
 #### __Note 2.0: Make sure the values in application.properties for db username, password and db name match the environment variables for the Docker images, otherwise it won't connect to the DB.__ 
+
+
+## Installation on Linux
+1. Install Docker
+
+   This is not trivial and varies depending on your distro. For Ubuntu 18.04, a good resource is https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04.
+   
+   
+    
+2. Get the official postgres docker image
+    
+    `docker pull postgres`
+    
+    
+3. Build the container
+
+    `docker run -d -p 5432:5432 --name xenon -e POSTGRES_PASSWORD=password1 postgres`
+    
+    
+4. Create the database
+
+    `docker exec -it xenon psql -U postgres -c "CREATE DATABASE ccsucsclubdb"`
+
+
+5. Install gradle
+
+   For swing to properly boot, you will need gradle version 4.0 or higher, which is not available in the standard ubuntu repositories. To get around this, add the following ppa:
+    ```
+    sudo add-apt-repository ppa:cwchien/gradle
+    sudo apt update
+    sudo apt install gradle
+    ```
+    
+    
+6. Change application.properties file
+
+   In the **application.properties** file (src/main/resources/application.properties), set the configurations as follows:
+    ```
+    spring.datasource.url=jdbc:postgresql://localhost:5432/ccsucsclubdb
+    spring.datasource.username=postgres
+    spring.datasource.password=password1
+    ```
+    
+    
+7. Boot the application
+
+    `gradle bootRun`
